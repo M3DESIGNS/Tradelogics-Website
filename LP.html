@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+<meta name="description" content="Trading Mastery for Stock Markets — A complete course covering Smart Money concepts, options trading, price action and more. Built for Indian markets. In Hinglish."/>
+<meta name="theme-color" content="#0A0A0A"/>
+<title>Trading Mastery for Stock Markets — Tradelogics</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0A0A0A;
+  --graphite:#1A1A1A;
+  --slate:#4A4A4A;
+  --silver:#999;
+  --mist:#D9D9D9;
+  --white:#fff;
+  --gold:#C8A96E;
+  --gold-light:rgba(200,169,110,0.12);
+  --gold-border:rgba(200,169,110,0.2);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Montserrat',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.025;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  background:rgba(10,10,10,0.85);
+  backdrop-filter:blur(12px);
+}
+.nav-brand{
+  font-size:20px;font-weight:700;letter-spacing:5px;
+  color:var(--gold);text-transform:uppercase;text-decoration:none;
+}
+.nav-tagline{
+  font-size:11px;font-weight:400;letter-spacing:2px;
+  color:var(--slate);text-transform:uppercase;
+}
+.nav-cta{
+  font-size:12px;font-weight:700;letter-spacing:3px;
+  color:var(--black);background:var(--gold);
+  text-transform:uppercase;text-decoration:none;
+  padding:12px 26px;
+  transition:opacity 0.2s;
+}
+.nav-cta:hover{opacity:0.85}
+.nav-login{
+  font-size:12px;font-weight:700;letter-spacing:3px;
+  color:var(--gold);background:transparent;
+  text-transform:uppercase;text-decoration:none;
+  padding:12px 26px;
+  border:1px solid var(--gold-border);
+  transition:background 0.2s,color 0.2s,border-color 0.2s;
+}
+.nav-login:hover{background:var(--gold-light);border-color:var(--gold);color:var(--gold)}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:140px 60px 80px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.hero-eyebrow{
+  font-size:13px;font-weight:700;letter-spacing:4px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:28px;
+  display:flex;align-items:center;gap:14px;
+}
+.hero-eyebrow::before{
+  content:'';display:block;width:32px;height:1px;background:var(--gold);
+}
+.hero-headline{
+  font-size:clamp(52px,8vw,96px);
+  font-weight:900;
+  line-height:0.95;
+  letter-spacing:-1px;
+  text-transform:uppercase;
+  color:var(--white);
+  margin-bottom:0;
+}
+.hero-headline em{
+  font-style:normal;color:var(--gold);
+}
+.hero-sub{
+  max-width:460px;
+  font-size:17px;font-weight:400;
+  color:#AAAAAA;
+  line-height:1.85;
+  margin-top:36px;margin-bottom:48px;
+}
+.hero-sub strong{color:var(--white);font-weight:600;}
+.hero-actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.btn-primary{
+  font-size:14px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;text-decoration:none;
+  background:var(--gold);color:var(--black);
+  padding:20px 44px;
+  transition:opacity 0.2s,transform 0.2s;
+  display:inline-block;
+}
+.btn-primary:hover{opacity:0.88;transform:translateY(-1px)}
+.btn-ghost{
+  font-size:14px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;text-decoration:none;
+  color:var(--silver);
+  border-bottom:1px solid var(--slate);
+  padding-bottom:3px;
+  transition:color 0.2s,border-color 0.2s;
+}
+.btn-ghost:hover{color:var(--white);border-color:var(--white)}
+
+.hero-stats{
+  display:flex;gap:0;
+  flex-wrap:wrap;
+  margin-top:72px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding-top:40px;
+}
+.hero-stat{
+  flex:1;padding-right:40px;
+  border-right:1px solid rgba(255,255,255,0.06);
+  margin-right:40px;
+}
+.hero-stat:last-child{border-right:none;margin-right:0;padding-right:0}
+.hero-stat-num{
+  font-size:36px;font-weight:900;color:var(--gold);
+  letter-spacing:-1px;display:block;line-height:1;margin-bottom:6px;
+}
+.hero-stat-label{
+  font-size:13px;font-weight:600;letter-spacing:2px;
+  color:var(--silver);text-transform:uppercase;
+}
+
+/* ── VIDEO SECTION ── */
+.video-section{
+  padding:100px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.video-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.video-wrap{
+  position:relative;
+  background:var(--graphite);
+  aspect-ratio:16/9;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.06);
+  overflow:hidden;
+  cursor:pointer;
+}
+.video-wrap::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(200,169,110,0.05) 0%,transparent 60%);
+}
+.video-placeholder-lines{
+  position:absolute;inset:0;
+  background-image:repeating-linear-gradient(
+    0deg,transparent,transparent 39px,
+    rgba(255,255,255,0.02) 39px,rgba(255,255,255,0.02) 40px
+  );
+}
+.video-play-btn{
+  position:relative;z-index:2;
+  width:72px;height:72px;
+  border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s,transform 0.2s;
+}
+.video-wrap:hover .video-play-btn{
+  background:var(--gold);transform:scale(1.06);
+}
+.video-play-btn svg{
+  width:22px;height:22px;fill:var(--gold);margin-left:4px;
+  transition:fill 0.2s;
+}
+.video-wrap:hover .video-play-btn svg{fill:var(--black);}
+.video-label{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  font-size:8px;font-weight:700;letter-spacing:3px;
+  color:var(--silver);text-transform:uppercase;white-space:nowrap;z-index:2;
+}
+.video-corner{
+  position:absolute;width:20px;height:20px;
+}
+.video-corner.tl{top:12px;left:12px;border-top:1px solid var(--gold);border-left:1px solid var(--gold);}
+.video-corner.tr{top:12px;right:12px;border-top:1px solid var(--gold);border-right:1px solid var(--gold);}
+.video-corner.bl{bottom:12px;left:12px;border-bottom:1px solid var(--gold);border-left:1px solid var(--gold);}
+.video-corner.br{bottom:12px;right:12px;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold);}
+
+.video-info{}
+.video-info p{
+  font-size:16px;font-weight:400;color:#AAAAAA;
+  line-height:1.9;margin-bottom:18px;
+}
+.video-info p strong{color:var(--white);font-weight:600;}
+.video-info p:last-child{margin-bottom:0;}
+
+/* ── PRICING ── */
+.pricing-section{
+  padding:100px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:var(--graphite);
+}
+.pricing-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.pricing-copy{}
+.pricing-copy p{
+  font-size:16px;font-weight:400;color:#AAAAAA;
+  line-height:1.9;margin-bottom:18px;
+}
+.pricing-copy p strong{color:var(--white);font-weight:600;}
+.pricing-includes{
+  margin-top:32px;display:flex;flex-direction:column;gap:12px;
+}
+.pricing-include-item{
+  display:flex;align-items:center;gap:12px;
+  font-size:14px;font-weight:600;letter-spacing:0.5px;
+  color:#CCCCCC;text-transform:uppercase;
+}
+.pricing-include-item::before{
+  content:'';display:block;
+  width:20px;height:1px;background:var(--gold);flex-shrink:0;
+}
+
+.pricing-card{
+  background:var(--black);
+  border:1px solid var(--gold-border);
+  padding:48px 40px;
+  position:relative;overflow:hidden;
+}
+.pricing-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:var(--gold);
+}
+.pricing-badge{
+  display:inline-block;
+  font-size:12px;font-weight:700;letter-spacing:3px;
+  color:var(--black);background:var(--gold);
+  text-transform:uppercase;padding:5px 12px;
+  margin-bottom:28px;
+}
+.pricing-was{
+  font-size:13px;font-weight:400;color:var(--slate);
+  letter-spacing:1px;margin-bottom:6px;
+  text-decoration:line-through;
+}
+.pricing-now-label{
+  font-size:9px;font-weight:700;letter-spacing:3px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:8px;
+}
+.pricing-price{
+  font-size:56px;font-weight:900;color:var(--white);
+  letter-spacing:-2px;line-height:1;margin-bottom:6px;
+}
+.pricing-price span{
+  font-size:24px;font-weight:600;letter-spacing:0;vertical-align:top;margin-top:8px;display:inline-block;
+}
+.pricing-saving{
+  font-size:14px;font-weight:600;color:var(--gold);
+  letter-spacing:1px;margin-bottom:32px;
+  padding:6px 12px;border:1px solid var(--gold-border);
+  display:inline-block;
+}
+.pricing-divider{
+  height:1px;background:rgba(255,255,255,0.06);margin-bottom:28px;
+}
+.pricing-cta{
+  display:block;width:100%;
+  font-size:10px;font-weight:700;letter-spacing:3px;
+  color:var(--black);background:var(--gold);
+  text-transform:uppercase;text-decoration:none;
+  padding:18px 24px;text-align:center;
+  transition:opacity 0.2s,transform 0.2s;
+  margin-bottom:16px;
+}
+.pricing-cta:hover{opacity:0.88;transform:translateY(-1px)}
+.pricing-note{
+  font-size:13px;font-weight:400;color:var(--slate);
+  text-align:center;letter-spacing:1px;
+}
+
+/* ── FOR WHO ── */
+.forwho{
+  padding:100px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.section-header{margin-bottom:56px;}
+.section-label{
+  font-size:11px;font-weight:700;letter-spacing:5px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:16px;
+}
+.section-title{
+  font-size:clamp(36px,5vw,54px);font-weight:900;
+  text-transform:uppercase;letter-spacing:0.5px;line-height:1.05;
+  color:var(--white);
+}
+.section-title em{font-style:normal;color:var(--gold);}
+
+.who-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+}
+.who-card{
+  background:var(--graphite);
+  padding:40px 36px;
+  border-bottom:2px solid transparent;
+  transition:border-color 0.25s;
+}
+.who-card:hover{border-bottom-color:var(--gold);}
+.who-number{
+  font-size:56px;font-weight:900;
+  color:rgba(200,169,110,0.12);
+  letter-spacing:-2px;line-height:1;
+  margin-bottom:20px;
+}
+.who-title{
+  font-size:18px;font-weight:700;
+  color:var(--white);letter-spacing:0.5px;
+  text-transform:uppercase;margin-bottom:14px;
+}
+.who-desc{
+  font-size:14px;font-weight:400;
+  color:var(--silver);line-height:1.75;
+}
+
+/* ── WHAT YOU GET ── */
+.curriculum{
+  padding:100px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.curriculum-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+}
+.curriculum-intro p{
+  font-size:16px;font-weight:400;color:#AAAAAA;
+  line-height:1.9;margin-bottom:18px;
+}
+.curriculum-intro p strong{color:var(--white);font-weight:600;}
+.curriculum-intro p:last-child{margin-bottom:0;}
+
+.chapter-list{display:flex;flex-direction:column;gap:2px;}
+.chapter-item{
+  display:flex;align-items:flex-start;gap:20px;
+  background:var(--graphite);
+  padding:20px 24px;
+  border-left:2px solid transparent;
+  transition:border-color 0.2s,background 0.2s;
+}
+.chapter-item:hover{
+  border-left-color:var(--gold);
+  background:#222;
+}
+.chapter-num{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  color:var(--gold);text-transform:uppercase;
+  min-width:36px;margin-top:2px;
+}
+.chapter-info{}
+.chapter-title{
+  font-size:16px;font-weight:700;
+  color:var(--white);letter-spacing:0.3px;
+  text-transform:uppercase;margin-bottom:5px;
+}
+.chapter-desc{
+  font-size:14px;font-weight:400;
+  color:var(--silver);line-height:1.6;
+}
+
+/* ── HIGHLIGHTS ── */
+.highlights{
+  padding:100px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.highlights-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  margin-top:8px;
+}
+.hl-card{
+  background:var(--graphite);
+  padding:36px 32px;
+}
+.hl-bar{width:24px;height:2px;background:var(--gold);margin-bottom:20px;}
+.hl-title{
+  font-size:17px;font-weight:700;color:var(--white);
+  text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;
+}
+.hl-desc{
+  font-size:14px;font-weight:400;color:var(--silver);line-height:1.7;
+}
+
+/* ── AUDIENCE PROOF ── */
+.proof{
+  padding:100px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:var(--graphite);
+}
+.proof-inner{
+  display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:center;
+}
+.proof-quote{
+  font-size:clamp(26px,3.5vw,42px);
+  font-weight:900;
+  text-transform:uppercase;
+  line-height:1.15;
+  color:var(--white);
+  letter-spacing:0.3px;
+}
+.proof-quote em{font-style:normal;color:var(--gold);}
+.proof-points{display:flex;flex-direction:column;gap:24px;}
+.proof-point{
+  display:flex;align-items:flex-start;gap:16px;
+  padding-bottom:24px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.proof-point:last-child{border-bottom:none;padding-bottom:0;}
+.proof-tick{
+  width:16px;height:16px;flex-shrink:0;margin-top:2px;
+  position:relative;
+}
+.proof-tick::before{
+  content:'';display:block;
+  width:10px;height:10px;
+  border:1.5px solid var(--gold);
+  margin-top:2px;
+}
+.proof-tick::after{
+  content:'';
+  position:absolute;top:5px;left:2px;
+  width:6px;height:3px;
+  border-left:1.5px solid var(--gold);
+  border-bottom:1.5px solid var(--gold);
+  transform:rotate(-45deg);
+}
+.proof-text{
+  font-size:15px;font-weight:400;
+  color:#CCCCCC;line-height:1.7;
+}
+.proof-text strong{color:var(--white);font-weight:600;}
+
+/* ── LEARN ── */
+.learn{
+  padding:100px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.learn-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:2px;
+  margin-top:8px;
+}
+.learn-item{
+  display:flex;align-items:flex-start;gap:14px;
+  background:var(--graphite);padding:20px 22px;
+}
+.learn-dot{
+  width:6px;height:6px;background:var(--gold);
+  flex-shrink:0;margin-top:5px;
+}
+.learn-text{
+  font-size:14px;font-weight:400;color:#CCCCCC;line-height:1.6;
+}
+.learn-text strong{
+  color:var(--white);font-weight:700;display:block;
+  font-size:14px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;
+}
+
+/* ── CTA ── */
+.cta-section{
+  padding:120px 60px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;
+  top:50%;left:50%;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(200,169,110,0.06) 0%,transparent 70%);
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.cta-label{
+  font-size:9px;font-weight:700;letter-spacing:5px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:24px;
+}
+.cta-headline{
+  font-size:clamp(36px,6vw,68px);
+  font-weight:900;text-transform:uppercase;
+  line-height:1;letter-spacing:-0.5px;
+  color:var(--white);margin-bottom:20px;
+}
+.cta-headline em{font-style:normal;color:var(--gold);}
+.cta-sub{
+  font-size:16px;font-weight:400;color:var(--silver);
+  line-height:1.8;max-width:480px;margin:0 auto 48px;
+}
+.cta-disclaimer{
+  font-size:14px;font-weight:400;color:var(--silver);
+  letter-spacing:1px;margin-top:20px;
+}
+
+/* ── FOOTER ── */
+footer{
+  padding:36px 60px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-brand{
+  font-size:14px;font-weight:700;letter-spacing:4px;
+  color:var(--silver);text-transform:uppercase;
+}
+.footer-contact{
+  font-size:13px;font-weight:400;letter-spacing:1px;
+  color:var(--silver);text-align:center;
+}
+.footer-contact a{
+  color:var(--gold);text-decoration:none;
+  transition:opacity 0.2s;
+}
+.footer-contact a:hover{opacity:0.75}
+.footer-values{
+  font-size:13px;font-weight:400;letter-spacing:2px;
+  color:var(--silver);text-transform:uppercase;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{animation:fadeUp 0.7s ease both}
+.hero-headline{animation:fadeUp 0.7s 0.1s ease both}
+.hero-sub{animation:fadeUp 0.7s 0.2s ease both}
+.hero-actions{animation:fadeUp 0.7s 0.3s ease both}
+.hero-stats{animation:fadeUp 0.7s 0.4s ease both}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .nav-brand{font-size:14px;letter-spacing:3px}
+  .nav-tagline{display:none}
+  .nav-cta{font-size:10px;padding:10px 18px;letter-spacing:2px}
+
+  .hero{padding:120px 24px 60px}
+  .hero-eyebrow{font-size:11px;letter-spacing:3px}
+  .hero-headline{font-size:clamp(40px,10vw,72px)}
+  .hero-sub{font-size:15px;max-width:100%}
+  .hero-actions{flex-direction:column;align-items:flex-start;gap:16px}
+  .btn-primary{width:100%;text-align:center;padding:18px 24px;font-size:13px}
+  .btn-ghost{font-size:13px}
+
+  .hero-stats{flex-direction:row;flex-wrap:wrap;gap:0;margin-top:40px}
+  .hero-stat{flex:1 1 45%;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);padding:20px 0;margin:0}
+  .hero-stat:last-child{border-bottom:none}
+  .hero-stat-num{font-size:28px}
+  .hero-stat-label{font-size:11px}
+
+  .forwho,.curriculum,.highlights,.proof,.learn,.cta-section,.video-section,.pricing-section{padding:72px 24px}
+  footer{padding:28px 24px;flex-direction:column;gap:14px;text-align:center}
+  .footer-values{display:block}
+
+  .section-title{font-size:clamp(30px,7vw,44px)}
+  .section-header{margin-bottom:40px}
+
+  .who-grid{grid-template-columns:1fr 1fr}
+  .who-card{padding:28px 22px}
+  .who-number{font-size:40px}
+  .who-title{font-size:15px}
+  .who-desc{font-size:13px}
+
+  .curriculum-layout{grid-template-columns:1fr;gap:40px}
+  .curriculum-intro p{font-size:14px}
+  .chapter-item{padding:16px 18px;gap:14px}
+  .chapter-title{font-size:13px}
+  .chapter-desc{font-size:12px}
+
+  .highlights-grid{grid-template-columns:1fr 1fr}
+  .hl-card{padding:26px 22px}
+  .hl-title{font-size:14px}
+  .hl-desc{font-size:13px}
+
+  .video-layout{grid-template-columns:1fr;gap:36px}
+  .video-info p{font-size:14px}
+
+  .pricing-inner{grid-template-columns:1fr;gap:40px}
+  .pricing-copy p{font-size:14px}
+  .pricing-card{padding:36px 28px}
+  .pricing-price{font-size:44px}
+  .pricing-include-item{font-size:13px}
+
+  .cta-section{padding:80px 24px}
+  .cta-sub{font-size:14px}
+  .cta-disclaimer{font-size:12px}
+}
+
+@media(max-width:480px){
+  nav{padding:14px 20px}
+  .nav-brand{font-size:12px;letter-spacing:2px}
+  .nav-cta{font-size:9px;padding:9px 14px;letter-spacing:1px}
+  .nav-login{font-size:9px;padding:9px 14px;letter-spacing:1px}
+
+  .hero{padding:100px 20px 48px}
+  .hero-headline{font-size:clamp(34px,11vw,52px);line-height:1}
+  .hero-eyebrow{font-size:9px;letter-spacing:2px}
+  .hero-sub{font-size:14px}
+  .btn-primary{font-size:12px;padding:16px 20px}
+  .btn-ghost{font-size:12px}
+
+  .hero-stats{flex-direction:column}
+  .hero-stat{flex:1 1 100%;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .hero-stat:last-child{border-bottom:none}
+  .hero-stat-num{font-size:26px}
+  .hero-stat-label{font-size:10px}
+
+  .forwho,.curriculum,.highlights,.proof,.learn,.cta-section,.video-section,.pricing-section{padding:56px 20px}
+  footer{padding:24px 20px}
+
+  .section-title{font-size:clamp(26px,8vw,36px)}
+  .section-label{font-size:10px;letter-spacing:3px}
+
+  .who-grid{grid-template-columns:1fr}
+  .who-card{padding:24px 20px}
+  .who-number{font-size:36px}
+  .who-title{font-size:16px}
+  .who-desc{font-size:13px}
+
+  .highlights-grid{grid-template-columns:1fr}
+  .hl-card{padding:24px 20px}
+  .hl-title{font-size:14px}
+  .hl-desc{font-size:13px}
+
+  .curriculum-layout{gap:32px}
+  .chapter-num{font-size:10px}
+  .chapter-title{font-size:12px}
+  .chapter-desc{font-size:11px}
+  .chapter-item{padding:14px 16px}
+
+  .pricing-card{padding:28px 20px}
+  .pricing-price{font-size:38px}
+  .pricing-badge{font-size:10px}
+  .pricing-saving{font-size:12px}
+  .pricing-note{font-size:12px}
+  .pricing-cta{font-size:11px;padding:16px}
+  .pricing-include-item{font-size:12px}
+
+  .cta-headline{font-size:clamp(28px,9vw,48px)}
+  .cta-sub{font-size:13px;padding:0 8px}
+  .cta-disclaimer{font-size:11px}
+
+  .video-label{font-size:7px}
+  .video-play-btn{width:56px;height:56px}
+
+  .footer-contact{font-size:12px}
+  .footer-values{font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div>
+    <div class="nav-brand">Tradelogics</div>
+    <div class="nav-tagline">Where Traders Are Built</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <a href="#" class="nav-login">Login</a>
+    <a href="#enroll" class="nav-cta">Enroll — ₹19,999</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Trading Mastery for Stock Markets</p>
+  <h1 class="hero-headline">
+    The market<br/>doesn't wait.<br/><em>Neither should you.</em>
+  </h1>
+  <p class="hero-sub">
+    A complete, structured program that takes you from market basics to <strong>advanced options strategies, Smart Money concepts, and your own trading system</strong> — built specifically for Indian markets.
+  </p>
+  <div class="hero-actions">
+    <a href="#enroll" class="btn-primary">Enroll Now</a>
+    <a href="#curriculum" class="btn-ghost">View Curriculum</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">20+</span>
+      <span class="hero-stat-label">Hours of pure content</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">10</span>
+      <span class="hero-stat-label">In-depth chapters</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">6+</span>
+      <span class="hero-stat-label">Instruments covered</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">1</span>
+      <span class="hero-stat-label">Complete trading system</span>
+    </div>
+  </div>
+
+  <div style="margin-top:48px;padding-top:48px;border-top:1px solid rgba(200,169,110,0.2);">
+    <div class="hero-stats" style="margin-top:0;border-top:none;padding-top:0;">
+      <div class="hero-stat">
+        <span class="hero-stat-num">Hinglish</span>
+        <span class="hero-stat-label">Language</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">Beginner</span>
+        <span class="hero-stat-label">Level</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">Saturday</span>
+        <span class="hero-stat-label">Doubt Solving Class</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">Daily</span>
+        <span class="hero-stat-label">Trading Summary</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO VIDEO -->
+<section class="video-section">
+  <div class="video-layout">
+    <div class="video-wrap">
+      <div class="video-placeholder-lines"></div>
+      <div class="video-corner tl"></div>
+      <div class="video-corner tr"></div>
+      <div class="video-corner bl"></div>
+      <div class="video-corner br"></div>
+      <div class="video-play-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <span class="video-label">Watch Course Introduction</span>
+    </div>
+    <div class="video-info">
+      <p class="section-label">Course Preview</p>
+      <h2 class="section-title" style="margin-bottom:24px;">See what's<br/>inside <em>before<br/>you decide.</em></h2>
+      <p>No sales pitch. No vague promises. Just a <strong>straight look at the curriculum, the framework, and the kind of trader this program is built to create.</strong></p>
+      <p>If this resonates — you're in the right place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="curriculum" id="curriculum">
+  <div class="section-header">
+    <p class="section-label">The Curriculum</p>
+    <h2 class="section-title">10 chapters.<br/><em>Zero filler.</em></h2>
+  </div>
+  <div class="curriculum-layout">
+    <div class="curriculum-intro">
+      <p>Every chapter in this course was designed with one question in mind: <strong>does this make you a better trader?</strong> If it didn't pass that test, it didn't make the cut.</p>
+      <p>We start with the foundations most courses skip, build your technical toolkit through price action and Smart Money, then go deep into the instruments and strategies that actually generate returns in Indian markets.</p>
+      <p>The final module is where it all comes together — your own system, your own journal, and the psychological edge to execute it consistently.</p>
+    </div>
+    <div class="chapter-list">
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 01</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Introduction to Markets</p>
+          <p class="chapter-desc">Stocks vs forex vs crypto · Trading vs investing · Setting the right expectations</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 02</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Price Action Basics</p>
+          <p class="chapter-desc">How to read price · The logic behind every move · Foundation of technical analysis</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 03</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Smart Money Concepts</p>
+          <p class="chapter-desc">Institutional order flow · Liquidity sweeps · Order blocks and price delivery</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 04</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Key Indicators</p>
+          <p class="chapter-desc">RSI · EMA · Fibonacci levels · Using indicators as confluence, not signals</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 05</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Global Data &amp; Sentiment</p>
+          <p class="chapter-desc">Reading VIX · PCR data for indices and stocks · Daily market bias framework</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 06</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Tradable Instruments</p>
+          <p class="chapter-desc">Intraday equities · Futures trading · Options · Margin via option hedging</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 07</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Options — In Depth</p>
+          <p class="chapter-desc">Mechanics · Greeks · Buying vs selling · Payoff structures and risk profiles</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 08</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Strike Price Selection</p>
+          <p class="chapter-desc">Choosing strikes by view · Timeframe alignment · Risk-to-reward optimisation</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 09</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Trading Strategies</p>
+          <p class="chapter-desc">Proven setups with clear entry, exit, and management rules for live markets</p>
+        </div>
+      </div>
+      <div class="chapter-item">
+        <span class="chapter-num">Ch 10</span>
+        <div class="chapter-info">
+          <p class="chapter-title">Build Your System</p>
+          <p class="chapter-desc">No-code algo · Trading journal · Psychology · Getting started roadmap</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="enroll">
+  <div class="pricing-inner">
+    <div class="pricing-copy">
+      <p class="section-label">Enroll Today</p>
+      <h2 class="section-title" style="margin-bottom:24px;">One investment.<br/><em>A lifetime edge.</em></h2>
+      <p>Trading Mastery for Stock Markets is priced to be accessible — because we believe the barrier to serious financial education shouldn't be the cost of the education itself.</p>
+      <p>This is a <strong>limited-time offer</strong>. When the early enrollment window closes, the price returns to its standard rate. Lock in your access now.</p>
+      <div class="pricing-includes">
+        <div class="pricing-include-item">10 structured chapters</div>
+        <div class="pricing-include-item">Smart Money &amp; options depth</div>
+        <div class="pricing-include-item">No-code algo framework</div>
+        <div class="pricing-include-item">Trading journal template</div>
+        <div class="pricing-include-item">2 Year Access</div>
+        <div class="pricing-include-item">Indian markets focus</div>
+      </div>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-badge">Limited Time Offer</div>
+      <p class="pricing-was">₹29,999</p>
+      <p class="pricing-now-label">Your Price Today</p>
+      <p class="pricing-price"><span>₹</span>19,999</p>
+      <p class="pricing-saving">You save ₹10,000 — 33% off</p>
+      <div class="pricing-divider"></div>
+      <a href="#" class="pricing-cta">Enroll Now — ₹19,999</a>
+      <p class="pricing-note">One-time payment · 2 Year Access</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="forwho">
+  <div class="section-header">
+    <p class="section-label">Who This Is For</p>
+    <h2 class="section-title">Four types of traders.<br/><em>One program.</em></h2>
+  </div>
+  <div class="who-grid">
+    <div class="who-card">
+      <div class="who-number">01</div>
+      <p class="who-title">Complete Beginners</p>
+      <p class="who-desc">You've heard about the markets but don't know where to start. We cut through the noise and build your foundation the right way — from terminology to your first live trade, step by step.</p>
+    </div>
+    <div class="who-card">
+      <div class="who-number">02</div>
+      <p class="who-title">Working Professionals</p>
+      <p class="who-desc">You have capital, limited time, and zero patience for fluff. This course gives you a structured, efficient path to understanding markets and making informed decisions — without quitting your job to do it.</p>
+    </div>
+    <div class="who-card">
+      <div class="who-number">03</div>
+      <p class="who-title">Existing Traders</p>
+      <p class="who-desc">You've traded, maybe lost money, and know something's missing. We fill the gaps — Smart Money concepts, advanced options, strike selection, and the discipline framework that turns inconsistency into an edge.</p>
+    </div>
+    <div class="who-card">
+      <div class="who-number">04</div>
+      <p class="who-title">Homemakers</p>
+      <p class="who-desc">You manage the household and want to put your time and savings to work. This course fits around your schedule — giving you a clear, practical path to building a second income stream from home, on your own terms.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="highlights">
+  <div class="section-header">
+    <p class="section-label">Why This Course</p>
+    <h2 class="section-title">Built different.<br/><em>On purpose.</em></h2>
+  </div>
+  <div class="highlights-grid">
+    <div class="hl-card">
+      <div class="hl-bar"></div>
+      <p class="hl-title">India-First Design</p>
+      <p class="hl-desc">Every example, every instrument, every data source is calibrated for NSE and BSE. No generic global content repurposed for Indian markets.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-bar"></div>
+      <p class="hl-title">Smart Money Framework</p>
+      <p class="hl-desc">Learn to read institutional footprints in price — so you stop being the liquidity and start trading alongside the players who move markets.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-bar"></div>
+      <p class="hl-title">Options Done Right</p>
+      <p class="hl-desc">Two full chapters, zero shortcuts. You'll understand options deeply enough to buy, sell, and hedge — not just guess strike prices.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-bar"></div>
+      <p class="hl-title">Macro Lens</p>
+      <p class="hl-desc">VIX, PCR, global sentiment — incorporated into a daily framework you can actually use before every trading session.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-bar"></div>
+      <p class="hl-title">Your Own Algo</p>
+      <p class="hl-desc">No coding required. You'll automate your own strategy using a no-code tool and deploy it with confidence in live markets.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-bar"></div>
+      <p class="hl-title">Psychology &amp; Discipline</p>
+      <p class="hl-desc">The missing piece in most trading education. We cover the mental framework that determines whether your edge survives contact with real markets.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF / REASONS -->
+
+<!-- CTA -->
+<section class="cta-section">
+  <p class="cta-label">Ready to Begin</p>
+  <h2 class="cta-headline">Stop watching.<br/><em>Start trading.</em></h2>
+  <p class="cta-sub">Join Trading Mastery for Stock Markets and build the knowledge, tools, and discipline to trade Indian markets with confidence.</p>
+  <a href="#enroll" class="btn-primary">Enroll Now — ₹19,999</a>
+  <p class="cta-disclaimer">Limited-time offer · Was ₹29,999 · Save 33%</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-values">Discipline · Clarity · Precision</span>
+  <div class="footer-contact">Contact us: <a href="mailto:desk@tradelogics.co">desk@tradelogics.co</a></div>
+</footer>
+</body>
+</html>
